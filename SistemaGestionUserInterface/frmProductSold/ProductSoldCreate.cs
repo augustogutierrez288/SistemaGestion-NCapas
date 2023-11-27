@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SistemaGestionBussines;
+using SistemaGestionEntities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +17,18 @@ namespace SistemaGestionUserInterface.frmProductSold
         public ProductSoldCreate()
         {
             InitializeComponent();
+        }
+
+        private void btnCreateProductSold_Click(object sender, EventArgs e)
+        {
+            ProductSold productSold = new ProductSold();
+            productSold.Stock = Convert.ToInt32(txtStock.Text);
+            productSold.IdProduct = Convert.ToInt32(txtIdProduct.Text);
+            productSold.IdSold = Convert.ToInt32(txtIdSold.Text);
+
+            ProductSoldBussines.CreateProductSold(productSold);
+
+            MessageBox.Show("Producto cargado correctamente");
         }
     }
 }

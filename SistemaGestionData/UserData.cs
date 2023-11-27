@@ -35,7 +35,7 @@ namespace SistemaGestionData
                                     User user = new User();
 
                                     user.Id = Convert.ToInt32(dr["Id"]);
-                                    user.Name = dr["Nombre"].ToString();
+                                    user.NameUser = dr["Nombre"].ToString();
                                     user.Surname = dr["Apellido"].ToString();
                                     user.Username = dr["NombreUsuario"].ToString();
                                     user.Password = dr["Contraseña"].ToString();
@@ -70,7 +70,7 @@ namespace SistemaGestionData
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = user.Name });
+                        command.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = user.NameUser });
                         command.Parameters.Add(new SqlParameter("Apellido", SqlDbType.VarChar) { Value = user.Surname });
                         command.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.VarChar) { Value = user.Username });
                         command.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.VarChar) { Value = user.Password });
@@ -100,7 +100,7 @@ namespace SistemaGestionData
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.Add(new SqlParameter("Id", SqlDbType.BigInt) { Value = user.Id });
-                        command.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = user.Name });
+                        command.Parameters.Add(new SqlParameter("Nombre", SqlDbType.VarChar) { Value = user.NameUser });
                         command.Parameters.Add(new SqlParameter("Apellido", SqlDbType.VarChar) { Value = user.Surname });
                         command.Parameters.Add(new SqlParameter("NombreUsuario", SqlDbType.VarChar) { Value = user.Username });
                         command.Parameters.Add(new SqlParameter("Contraseña", SqlDbType.VarChar) { Value = user.Password });

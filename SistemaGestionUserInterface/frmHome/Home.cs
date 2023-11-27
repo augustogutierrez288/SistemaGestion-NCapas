@@ -35,21 +35,21 @@ namespace SistemaGestionUserInterface.Home
 
         private void btnProductSold_Click(object sender, EventArgs e)
         {
-            var frmProductSold = new ProductSold();
+            var frmProductSold = new ProductSoldRead();
             frmProductSold.Show();
             this.Close();
         }
 
         private void btnUser_Click(object sender, EventArgs e)
         {
-            var frmUser = new User();
+            var frmUser = new ReadUser();
             frmUser.Show();
             this.Close();
         }
 
         private void btnSold_Click(object sender, EventArgs e)
         {
-            var frmSold = new Sold();
+            var frmSold = new SoldRead();
             frmSold.Show();
             this.Close();
         }
