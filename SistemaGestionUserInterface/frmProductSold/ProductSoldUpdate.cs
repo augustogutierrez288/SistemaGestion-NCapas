@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,6 +27,33 @@ namespace SistemaGestionUserInterface.frmProductSold
             this._productSold = productSold;
         }
 
+        private async Task<bool> UpdateProductSold(ProductSold productSold)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                string path = @"https://localhost:7196/api/ProductSold";
+                HttpResponseMessage response = await client.PutAsJsonAsync(path, productSold);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show("Se actualizo correctamente el producto vendido");
+                    this.Close();
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al intentar actualizar el producto vendido");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+                return false;
+            }
+
+        }
         private void ProductSoldUpdate_Load(object sender, EventArgs e)
         {
             txtStock.Text = this._productSold.Stock.ToString();
@@ -39,9 +67,7 @@ namespace SistemaGestionUserInterface.frmProductSold
             this._productSold.IdProduct = Convert.ToInt32(txtIdProduct.Text);
             this._productSold.IdSold = Convert.ToInt32(txtIdSold.Text);
 
-            ProductSoldBussines.UpdateProductSold(this._productSold);
-
-            MessageBox.Show("Producto modificado correctamente");
+            this.UpdateProductSold(this._productSold);
         }
     }
 }

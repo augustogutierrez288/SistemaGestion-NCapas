@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaGestionEntities;
 using SistemaGestionBussines;
+using System.Net.Http.Json;
 
 namespace SistemaGestionUserInterface.frmSold
 {
@@ -19,6 +20,33 @@ namespace SistemaGestionUserInterface.frmSold
             InitializeComponent();
         }
 
+        private async Task<bool> CreateSold(Sold sold)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                string path = @"https://localhost:7196/api/Sold";
+                HttpResponseMessage response = await client.PostAsJsonAsync(path, sold);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show($"Se cargo correctamente la venta");
+                    this.Close();
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al intentar cargar la venta");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+                return false;
+            }
+
+        }
         private void btnCreateSold_Click(object sender, EventArgs e)
         {
             Sold sale = new Sold();
@@ -26,10 +54,7 @@ namespace SistemaGestionUserInterface.frmSold
             sale.Commit = txtCommit.Text;
             sale.IdUser = Convert.ToInt32(txtIDUser.Text);
 
-            SoldBussines.CreateSold(sale);
-
-            MessageBox.Show("Venta cargada con exito");
-
+            this.CreateSold(sale);
         }
     }
 }

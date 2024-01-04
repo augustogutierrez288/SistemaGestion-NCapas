@@ -11,17 +11,16 @@ namespace SistemaGestionData
 {
     public static class UserData
     {
+        private static string _connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
         public static List<User> LoadUser()
         {
             List<User> listUser = new List<User>();
-
-            string connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
 
             string query = "SELECT Id,Nombre,Apellido,NombreUsuario,Contraseña,Mail FROM Usuario";
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -59,13 +58,12 @@ namespace SistemaGestionData
 
         public static void CreateUser(User user)
         {
-            string connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
-
+            
             string query = "INSERT INTO Usuario (Nombre, Apellido, NombreUsuario, Contraseña, Mail) VALUES (@Nombre, @Apellido, @NombreUsuario, @Contraseña, @Mail) ";
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -88,13 +86,12 @@ namespace SistemaGestionData
 
         public static void UpdateUser(User user)
         {
-            string connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
-
+     
             string query = "UPDATE Usuario SET Nombre = @Nombre, Apellido = @Apellido, NombreUsuario = @NombreUsuario, Contraseña = @Contraseña, Mail = @Mail WHERE Id = @Id";
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -119,13 +116,12 @@ namespace SistemaGestionData
 
         public static void DeleteUser(User user)
         {
-            string connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
-
+           
             string query = "DELETE Usuario WHERE Id = @Id";
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 

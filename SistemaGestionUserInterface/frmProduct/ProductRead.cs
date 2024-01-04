@@ -11,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http;
+using System.Net.Sockets;
+using System.Net.Http.Json;
 
 namespace SistemaGestionUserInterface.frmProduct
 {
@@ -21,11 +24,27 @@ namespace SistemaGestionUserInterface.frmProduct
             InitializeComponent();
         }
 
-        private void ProductLoad()
+        private async Task LoadProduct()
         {
-            List<Product> list = ProductBussines.LoadProduct();
-            dtgbProduct.AutoGenerateColumns = false;
-            dtgbProduct.DataSource = list;
+            HttpClient client = new HttpClient();
+
+            List<Product>? listProduct = null;
+            try
+            {
+                string path = @"https://localhost:7196/api/Product";
+                HttpResponseMessage response = await client.GetAsync(path);
+
+                if(response.IsSuccessStatusCode)
+                {
+                    listProduct = await response.Content.ReadFromJsonAsync<List<Product>>();
+                    dtgbProduct.AutoGenerateColumns = false;
+                    dtgbProduct.DataSource = listProduct;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de comunicacionn con la API");
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)
@@ -45,12 +64,12 @@ namespace SistemaGestionUserInterface.frmProduct
         }
         private void Product_Load(object sender, EventArgs e)
         {
-            this.ProductLoad();
+            this.LoadProduct();
         }
 
         private void FormProductCreate_FormClosed(object? sender, FormClosedEventArgs e)
         {
-            this.ProductLoad();
+            this.LoadProduct();
         }
 
         private void dtgbProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)

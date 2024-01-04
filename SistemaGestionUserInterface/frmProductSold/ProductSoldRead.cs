@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,12 +23,29 @@ namespace SistemaGestionUserInterface.frmProductSold
             InitializeComponent();
         }
 
-        private void LoadProductSold()
+        private async Task LoadProductSold()
         {
-            List<ProductSold> listProductSale = ProductSoldBussines.LoadProductSold();
-            dtgvProductSold.AutoGenerateColumns = false;
-            dtgvProductSold.DataSource = listProductSale;
+            HttpClient client = new HttpClient();
+
+            List<ProductSold>? listProductSold = null;
+            try
+            {
+                string path = @"https://localhost:7196/api/ProductSold";
+                HttpResponseMessage response = await client.GetAsync(path);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    listProductSold = await response.Content.ReadFromJsonAsync<List<ProductSold>>();
+                    dtgvProductSold.AutoGenerateColumns = false;
+                    dtgvProductSold.DataSource = listProductSold;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de comunicacionn con la API");
+            }
         }
+        
         private void ProductSoldRead_Load(object sender, EventArgs e)
         {
             this.LoadProductSold();

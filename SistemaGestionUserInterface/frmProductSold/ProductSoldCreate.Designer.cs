@@ -110,6 +110,7 @@
             Controls.Add(label1);
             Name = "ProductSoldCreate";
             Text = "Cargar producto vendido";
+            Load += ProductSoldCreate_Load;
             ResumeLayout(false);
             PerformLayout();
         }

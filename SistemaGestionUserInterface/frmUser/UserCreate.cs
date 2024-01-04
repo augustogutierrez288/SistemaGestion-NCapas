@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +25,34 @@ namespace SistemaGestionUserInterface.frmUser
 
         }
 
+        private async Task<bool> CreateUser(User user)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                string path = @"https://localhost:7196/api/User";
+                HttpResponseMessage response = await client.PostAsJsonAsync(path, user);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show($"Se cargo correctamente el cliente");
+                    this.Close();
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al intentar cargar al cliente");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+                return false;
+            }
+
+        }
+
         private void btnCreateUser_Click(object sender, EventArgs e)
         {
             User user = new User();
@@ -34,9 +63,7 @@ namespace SistemaGestionUserInterface.frmUser
             user.Email = txtEmail.Text;
             user.Password = txtPassword.Text;
 
-            UserBussines.CreateUser(user);
-
-            MessageBox.Show("Usuario creado con exito");
+            this.CreateUser(user);
         }
     }
 }

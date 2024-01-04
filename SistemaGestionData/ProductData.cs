@@ -12,17 +12,16 @@ namespace SistemaGestionData
 {
     public static class ProductData
     {
+        private static string _connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
         public static List<Product> LoadProduct()
         {
             List<Product> listProduct = new List<Product>();
-
-            string connetionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
 
             string query = "SELECT Id,Descripciones,Costo,PrecioVenta,Stock,IdUsuario FROM Producto";
 
             try
             {
-                using (SqlConnection connetion = new SqlConnection(connetionString))
+                using (SqlConnection connetion = new SqlConnection(_connectionString))
                 {
                     connetion.Open();
 
@@ -61,14 +60,12 @@ namespace SistemaGestionData
         }
         public static void CreateProduct(Product product)
         {
-            string connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
-
             string query = "INSERT INTO Producto (Descripciones, Costo, PrecioVenta, Stock, IdUsuario)" +
                             "VALUES(@Descripciones,@Costo, @PrecioVenta, @Stock, @IdUsuario); ";
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -91,14 +88,11 @@ namespace SistemaGestionData
         }
         public static void UpdateProduct(Product product)
         {
-            string connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
-
             string query = "UPDATE Producto SET Descripciones = @Descripciones, Costo = @Costo, PrecioVenta = @PrecioVenta, Stock = @Stock, IdUsuario = @IdUsuario WHERE Id = @Id ";
-
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
@@ -125,13 +119,12 @@ namespace SistemaGestionData
         }
         public static void DeleteProduct(Product product)
         {
-            string connectionString = @"Server=NBNOBLEXAG\SQLEXPRESS;DataBase=SistemaGestion;Trusted_Connection=True;";
-
+            
             string query = "DELETE FROM Producto WHERE Id = @Id ";
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
 

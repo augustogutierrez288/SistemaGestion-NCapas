@@ -150,6 +150,7 @@
             Controls.Add(label1);
             Name = "ProductCreate";
             Text = "Crear Producto";
+            Load += ProductCreate_Load;
             ResumeLayout(false);
             PerformLayout();
         }

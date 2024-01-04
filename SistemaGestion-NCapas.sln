@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionUserInterface", "SistemaGestionUserInterface\SistemaGestionUserInterface.csproj", "{1B2EE52C-11DB-4828-B3CD-0BC7ED547760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionUserInterface", "SistemaGestionUserInterface\SistemaGestionUserInterface.csproj", "{1B2EE52C-11DB-4828-B3CD-0BC7ED547760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionEntities", "SistemaGestionEntities\SistemaGestionEntities.csproj", "{630A12A4-7254-4C2D-9A08-1A901903F51C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionEntities", "SistemaGestionEntities\SistemaGestionEntities.csproj", "{630A12A4-7254-4C2D-9A08-1A901903F51C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionBussines", "SistemaGestionBussines\SistemaGestionBussines.csproj", "{29AF4B11-81B6-4C75-9979-6E35C11FA467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionBussines", "SistemaGestionBussines\SistemaGestionBussines.csproj", "{29AF4B11-81B6-4C75-9979-6E35C11FA467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionData", "SistemaGestionData\SistemaGestionData.csproj", "{EBB3A8A1-5A32-4129-B417-A339329960CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionData", "SistemaGestionData\SistemaGestionData.csproj", "{EBB3A8A1-5A32-4129-B417-A339329960CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestionAPI", "SistemaGestionAPI\SistemaGestionAPI.csproj", "{031B42AF-128E-495D-BA80-A25AAB834F4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{EBB3A8A1-5A32-4129-B417-A339329960CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBB3A8A1-5A32-4129-B417-A339329960CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBB3A8A1-5A32-4129-B417-A339329960CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{031B42AF-128E-495D-BA80-A25AAB834F4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{031B42AF-128E-495D-BA80-A25AAB834F4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{031B42AF-128E-495D-BA80-A25AAB834F4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{031B42AF-128E-495D-BA80-A25AAB834F4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

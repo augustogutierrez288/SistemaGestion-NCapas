@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,11 +21,27 @@ namespace SistemaGestionUserInterface.frmSold
             InitializeComponent();
         }
 
-        private void LoadSold()
+        private async Task LoadSold()
         {
-            List<Sold> listSold = SoldBussines.LoadSold();
-            dtgvSold.AutoGenerateColumns = false;
-            dtgvSold.DataSource = listSold;
+            HttpClient client = new HttpClient();
+
+            List<Sold>? listSold = null;
+            try
+            {
+                string path = @"https://localhost:7196/api/Sold";
+                HttpResponseMessage response = await client.GetAsync(path);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    listSold = await response.Content.ReadFromJsonAsync<List<Sold>>();
+                    dtgvSold.AutoGenerateColumns = false;
+                    dtgvSold.DataSource = listSold;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de comunicacionn con la API");
+            }
         }
 
         private void SoldRead_Load(object sender, EventArgs e)

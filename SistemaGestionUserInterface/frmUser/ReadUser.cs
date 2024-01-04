@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,11 +20,27 @@ namespace SistemaGestionUserInterface.frmUser
             InitializeComponent();
         }
 
-        private void LoadUser()
+        private async Task LoadUser()
         {
-            List<User> listUsers = UserBussines.LoadUser();
-            dtgvUsers.AutoGenerateColumns = false;
-            dtgvUsers.DataSource = listUsers;
+            HttpClient client = new HttpClient();
+
+            List<User>? listUser = null;
+            try
+            {
+                string path = @"https://localhost:7196/api/User";
+                HttpResponseMessage response = await client.GetAsync(path);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    listUser = await response.Content.ReadFromJsonAsync<List<User>>();
+                    dtgvUsers.AutoGenerateColumns = false;
+                    dtgvUsers.DataSource = listUser;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de comunicacionn con la API");
+            }
         }
 
         private void btnBack_Click(object sender, EventArgs e)

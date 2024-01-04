@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +20,33 @@ namespace SistemaGestionUserInterface.frmProduct
             InitializeComponent();
         }
 
+        private async Task<bool> CreateProduct(Product product)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                string path = @"https://localhost:7196/api/Product";
+                HttpResponseMessage response = await client.PostAsJsonAsync(path, product);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    MessageBox.Show($"Se creo correctamente el producto: {product.Description}");
+                    this.Close();
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error al intentar crear el producto");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+                return false;
+            }
+
+        }
         private void btnCrearProducto_Click(object sender, EventArgs e)
         {
             Product product = new Product();
@@ -28,9 +56,12 @@ namespace SistemaGestionUserInterface.frmProduct
             product.Stock = Convert.ToInt32(txtStock.Text);
             product.IdUser = Convert.ToInt32(txtIdUser.Text);
 
-            ProductBussines.CreateProduct(product);
+            this.CreateProduct(product);
+        }
 
-            MessageBox.Show("Producto cargado correctamente");
+        private void ProductCreate_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
